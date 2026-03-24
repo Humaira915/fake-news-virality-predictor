@@ -71,9 +71,20 @@ text = st.text_area("News Content")
 
 if st.button("Analyze News"):
 
-    combined = clean_text(title + " " + text)
-    text_vec = vectorizer.transform([combined])
+    full_input = (title + " " + text).strip()
 
+    # 🔥 DEBUG (REMOVE LATER)
+    st.write("DEBUG:", full_input)
+    st.write("WORD COUNT:", len(full_input.split()))
+
+    # 🚨 HARD RULE (NO FUNCTION — direct logic)
+    if len(full_input.split()) <= 2:
+        st.error("⚠️ Fake News Detected (Too short input)")
+        st.stop()
+
+    # ✅ NORMAL FLOW
+    combined = clean_text(full_input)
+    text_vec = vectorizer.transform([combined])
 
     title_len = len(title)
     exclamation = title.count("!")
@@ -82,9 +93,17 @@ if st.button("Analyze News"):
 
     features = np.array([[title_len, exclamation, sentiment, emotional]]) * 0.3
 
-
     X_input = hstack((text_vec, features))
 
+    prediction = model.predict(X_input)[0]
+
+    if prediction == 0:
+        st.error("⚠️ Fake News Detected")
+    else:
+        st.success("✅ Real News")
+
+
+    X_input = hstack((text_vec, features))
 
 
     prediction = model.predict(X_input)[0]
