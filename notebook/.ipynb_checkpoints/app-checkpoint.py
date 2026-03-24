@@ -36,7 +36,7 @@ def count_emotional_words(text):
     return count
 
 
-# Virality score
+# Virality score cal
 def virality_score(title):
 
     sentiment = TextBlob(title).sentiment.polarity
@@ -52,6 +52,12 @@ def virality_score(title):
     )
 
     return min(score * 100, 100)
+
+    def is_too_short(text):
+    word_count = len(text.split())
+    return word_count <= 2
+
+
 
 
 # UI
@@ -79,13 +85,13 @@ if st.button("Analyze News"):
 
     X_input = hstack((text_vec, features))
 
+    # Rule: very short news → fake
+    if is_too_short(text):
+        st.error("⚠️ Fake News Detected (Too short content)")
+        st.stop()   # stops further execution
+
+
     prediction = model.predict(X_input)[0]
-
-
-    
-
-
-
 
     if prediction == 0:
         st.error("⚠️ Fake News Detected")
@@ -101,10 +107,6 @@ if st.button("Analyze News"):
     st.write("Virality Score:", round(score,2), "%")
 
     st.subheader("📊 Why this news may go viral")
-
-
-    
-
 
 
     sent_score = abs(sentiment) * 10
