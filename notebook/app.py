@@ -73,16 +73,15 @@ if st.button("Analyze News"):
 
     full_input = (title + " " + text).strip()
 
-    # 🔥 DEBUG (REMOVE LATER)
+    
     st.write("DEBUG:", full_input)
     st.write("WORD COUNT:", len(full_input.split()))
 
-    # 🚨 HARD RULE (NO FUNCTION — direct logic)
+    
     if len(full_input.split()) <= 2:
         st.error("⚠️ Fake News Detected (Too short input)")
         st.stop()
 
-    # ✅ NORMAL FLOW
     combined = clean_text(full_input)
     text_vec = vectorizer.transform([combined])
 
