@@ -70,4 +70,7 @@ It’s built as a hands-on NLP project to understand how text data can be transf
 This project was built as part of my learning journey in machine learning and NLP.
 It focuses not just on prediction, but also on understanding "why"a model makes a decision.
 
+https://eduguide-aznxucyb8nbygsxeyblpm7.streamlit.app/
+streamlit link
+
 
