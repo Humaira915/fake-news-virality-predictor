@@ -53,7 +53,7 @@ def virality_score(title):
 
     return min(score * 100, 100)
 
-    def is_too_short(text):
+def is_too_short(text):
     word_count = len(text.split())
     return word_count <= 2
 
@@ -85,10 +85,6 @@ if st.button("Analyze News"):
 
     X_input = hstack((text_vec, features))
 
-    # Rule: very short news → fake
-    if is_too_short(text):
-        st.error("⚠️ Fake News Detected (Too short content)")
-        st.stop()   # stops further execution
 
 
     prediction = model.predict(X_input)[0]
