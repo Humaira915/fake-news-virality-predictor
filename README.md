@@ -1,4 +1,4 @@
-# 📰 Fake News & Viral Predictor
+#  Fake News & Viral Predictor
 
 This project is a simple machine learning application that analyzes news articles and predicts:
 
